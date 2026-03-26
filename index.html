@@ -239,7 +239,6 @@
   </style>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LesjJksAAAAANGpehMu8Fh8RzFzjStNNIDeUgpB"></script>
 </head>
 <body>
 
@@ -599,18 +598,13 @@ document.getElementById("contactForm").addEventListener("submit", async function
   try {
     const form = e.target;
 
-    grecaptcha.enterprise.ready(() => {
-        grecaptcha.enterprise.execute('6LesjJksAAAAANGpehMu8Fh8RzFzjStNNIDeUgpB', { action: 'contactForm' }).then(async token => {
-          // ✅ Email senden
-          await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
-            vorname: form.vorname.value,
-            nachname: form.nachname.value,
-            email: form.email.value,
-            interesse: form.interesse.value,
-            nachricht: form.nachricht.value,
-            token: token
-          });
-        });
+      // ✅ Email senden
+      await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
+        vorname: form.vorname.value,
+        nachname: form.nachname.value,
+        email: form.email.value,
+        interesse: form.interesse.value,
+        nachricht: form.nachricht.value,
       });
 
     btn.textContent = "✓ Gesendet!";
