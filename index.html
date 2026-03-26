@@ -252,6 +252,7 @@
     const templateIDContact = 'template_mkyr2hg';
     const templateIDreply = 'template_pxk7xjm';
 
+    emailjs.sendForm(serviceID, templateIDreply, this)
     emailjs.sendForm(serviceID, templateIDContact, this)
       .then(() => {
         status.textContent = 'Erfolgreich gesendet!';
@@ -265,8 +266,6 @@
       .finally(() => {
         btn.disabled = false;
       });
-
-      emailjs.sendForm(serviceID, templateIDreply, this);
   });
 </script>
 
