@@ -177,54 +177,57 @@
 <section id="kontakt">
   <div class="container">
     <div class="kontakt-grid">
-      <div class="kontakt-left">
-        <h2>Lass uns sprechen.</h2>
-        <p>Erzähl mir von deinem Betrieb und deinen aktuellen Herausforderungen.</p>
-        <div class="contact-items">
-          <div class="ci">
-            <div class="ci-icon">✉</div>
-            <div>
-              <div class="ci-label">E-Mail</div>
-              <div class="ci-val">hallo@schugge.solutions</div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <h2 style="font-family:var(--font-h); font-size:40px; margin-bottom:20px;">Lass uns sprechen.</h2>
+        <p style="color:var(--muted)">Ich melde mich innerhalb von 24 Stunden bei dir.</p>
       </div>
 
       <div class="kontakt-form">
-        <div class="form-header">Projektanfrage senden</div>
+        <div class="form-header">Projektanfrage</div>
+
         <form id="contact-form">
           <div class="form-body">
             <div class="form-row">
               <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="user_name" placeholder="Dein Name" required />
+                <label>Vorname</label>
+                <input type="text" name="vorname" required placeholder="Max" />
               </div>
               <div class="form-group">
-                <label>E-Mail</label>
-                <input type="email" name="user_email" placeholder="beispiel@firma.de" required />
+                <label>Nachname</label>
+                <input type="text" name="nachname" required placeholder="Mustermann" />
               </div>
             </div>
+
+            <div class="form-group">
+              <label>E-Mail Adresse</label>
+              <input type="email" name="email" required placeholder="max@beispiel.de" />
+            </div>
+
             <div class="form-group">
               <label>Interesse an</label>
-              <select name="service_type">
+              <select name="interesse">
                 <option value="Cloud Setup">Cloud-Setup & Migration</option>
                 <option value="Automatisierung">Prozessautomatisierung</option>
                 <option value="Managed Support">Managed IT & Support</option>
-                <option value="Beratung">Allgemeine Beratung</option>
               </select>
             </div>
+
             <div class="form-group">
               <label>Nachricht</label>
-              <textarea name="message" placeholder="Wie kann ich dir helfen?" required></textarea>
+              <textarea name="nachricht" required placeholder="Wie kann ich helfen?"></textarea>
             </div>
+
+<!--            <div class="form-group">-->
+<!--              <div class="g-recaptcha" data-theme="dark" data-sitekey="YOUR_GOOGLE_SITE_KEY"></div>-->
+<!--            </div>-->
           </div>
+
           <div class="form-footer">
             <div id="form-status">Bereit zum Senden</div>
-            <button type="submit" id="submit-btn" class="btn btn-primary">Anfrage Senden →</button>
+            <button type="submit" id="submit-btn" class="btn">Anfrage Senden →</button>
           </div>
         </form>
-      </div>
+        </div>
     </div>
   </div>
 </section>
@@ -245,11 +248,11 @@
     status.style.color = '#7a90a8';
     btn.disabled = true;
 
-    // REPLACE THESE with your actual IDs from EmailJS Dashboard
     const serviceID = 'service_p5hs7im';
-    const templateID = 'template_mkyr2hg';
+    const templateIDContact = 'template_mkyr2hg';
+    const templateIDreply = 'template_pxk7xjm';
 
-    emailjs.sendForm(serviceID, templateID, this)
+    emailjs.sendForm(serviceID, templateIDContact, this)
       .then(() => {
         status.textContent = 'Erfolgreich gesendet!';
         status.style.color = '#4ade80';
@@ -262,6 +265,8 @@
       .finally(() => {
         btn.disabled = false;
       });
+
+      emailjs.sendForm(serviceID, templateIDreply, this);
   });
 </script>
 
