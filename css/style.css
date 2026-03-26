@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+    --color-base-100: oklch(12% 0.042 264.695);
+    --color-base-200: oklch(20% 0.042 265.755);
+    --color-base-300: oklch(27% 0.041 260.031);
+    --color-base-content: oklch(96% 0.007 247.896);
+    --color-primary: oklch(78% 0.115 274.713);
+    --color-primary-content: oklch(25% 0.09 281.288);
+    --color-secondary: oklch(85% 0.138 181.071);
+    --color-secondary-content: oklch(27% 0.046 192.524);
+    --color-accent: oklch(82% 0.119 306.383);
+    --color-accent-content: oklch(29% 0.149 302.717);
+    --color-neutral: oklch(20% 0.042 265.755);
+    --color-neutral-content: oklch(98% 0.003 247.858);
+    --color-info: oklch(71% 0.143 215.221);
+    --color-info-content: oklch(98% 0.019 200.873);
+    --color-success: oklch(72% 0.219 149.579);
+    --color-success-content: oklch(98% 0.018 155.826);
+    --color-warning: oklch(76% 0.188 70.08);
+    --color-warning-content: oklch(98% 0.022 95.277);
+    --color-error: oklch(64% 0.246 16.439);
+    --color-error-content: oklch(96% 0.015 12.422);
+    --radius-selector: 0rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
+}
+
+.typewriter {
+    position: relative;
+    width: 100%;
+    font-family: monospace;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: normal;
+    border-right: 4px solid white;
+    padding-right: 1.25rem;
+    max-width: 100%;
+}
+
+.typewriter {
+    animation-name: typing, blink;
+    animation-duration: 2s, 0.7s;
+    animation-timing-function: steps(20), step-end;
+    animation-iteration-count: max(1);
+    animation-direction: alternate, normal;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+        visibility: hidden;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+    100% {
+        border-color: white;
+    }
+}
