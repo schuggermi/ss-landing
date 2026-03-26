@@ -510,29 +510,43 @@
       <div class="kontakt-form reveal">
         <div class="form-header">// Anfrage senden</div>
         <form id="contactForm">
-          <div class="g-recaptcha" data-sitekey="your_site_key"></div>
           <div class="form-body">
             <div class="form-row">
-              <div class="form-group"><label>Vorname *</label><input type="text" name="vorname" placeholder="Max" required /></div>
-              <div class="form-group"><label>Nachname *</label><input type="text" name="nachname" placeholder="Mustermann" required /></div>
+              <div class="form-group">
+                <label>Vorname *</label>
+                <input type="text" name="vorname" required />
+              </div>
+              <div class="form-group">
+                <label>Nachname *</label>
+                <input type="text" name="nachname" required />
+              </div>
             </div>
-            <div class="form-group"><label>E-Mail *</label><input type="email" name="email" placeholder="max@musterbetrieb.de" required /></div>
+
             <div class="form-group">
-              <label for="interesse">Ich interessiere mich für …</label>
-              <select id="interesse" name="interesse">
+              <label>E-Mail *</label>
+              <input type="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label>Ich interessiere mich für …</label>
+              <select name="interesse">
                 <option value="">— Bitte wählen —</option>
-                <option>Cloud-Setup &amp; Migration (2.700 € Pauschal)</option>
-                <option>Prozessautomatisierung (2.700 € Pauschal)</option>
-                <option>Managed IT &amp; Support (225 €/Monat)</option>
-                <option>Stundenbasis (75 €/Std.)</option>
-                <option>Kostenloses Erstgespräch</option>
+                <option>Cloud-Setup & Migration</option>
+                <option>Prozessautomatisierung</option>
+                <option>Managed IT & Support</option>
               </select>
             </div>
-            <div class="form-group" style="margin-bottom:0;"><label>Nachricht</label><textarea placeholder="Kurz beschreiben, was bei euch gerade nicht rund läuft …"></textarea></div>
+
+            <div class="form-group">
+              <label>Nachricht</label>
+              <textarea name="nachricht"></textarea>
+            </div>
           </div>
+
           <div class="form-footer">
-            <span class="form-footer-note">Antwort innerhalb von 24 Stunden · kostenlos &amp; unverbindlich</span>
-            <button type="submit" class="btn btn-primary" id="submitBtn">Nachricht senden →</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              Nachricht senden →
+            </button>
           </div>
         </form>
       </div>
@@ -575,54 +589,49 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
-  (function(){
-    emailjs.init("ypcnLDXmWPU1YFjw-");
-  })();
+(function(){
+  emailjs.init("ypcnLDXmWPU1YFjw-");
+})();
 
-  function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU', {action: 'LOGIN'});
-    });
-  }
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-  // const obs = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.1});
-  // document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  // function openMob(){document.getElementById('mob').classList.add('open');document.body.style.overflow='hidden';}
-  // function closeMob(){document.getElementById('mob').classList.remove('open');document.body.style.overflow='';}
-  // function handleSubmit(e){
-  //   e.preventDefault();
-  //   const btn=document.getElementById('submitBtn');
-  //   btn.textContent='✓ Gesendet!';btn.style.background='#16a34a';btn.style.boxShadow='0 0 0 1px #16a34a';btn.disabled=true;
-  //   setTimeout(()=>{btn.textContent='Nachricht senden →';btn.style.background='';btn.style.boxShadow='';btn.disabled=false;e.target.reset();},3500);
-  // }
+  const btn = document.getElementById("submitBtn");
+  btn.textContent = "Sende...";
+  btn.disabled = true;
 
-  document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  try {
+    // ✅ reCAPTCHA Token holen (WICHTIG: pro Submit!)
+    const token = await grecaptcha.enterprise.execute(
+      '6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU',
+      { action: 'contact_form' }
+    );
 
     const form = e.target;
 
-    emailjs.send("service_p5hs7im", "template_mkyr2hg", {
+    // ✅ Email senden (inkl. Token)
+    await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
       vorname: form.vorname.value,
       nachname: form.nachname.value,
       email: form.email.value,
       interesse: form.interesse.value,
-      nachricht: form.nachricht.value
-    })
-    emailjs.send("service_p5hs7im", "template_pxk7xjm", {
-      vorname: form.vorname.value,
-      nachname: form.nachname.value,
-      email: form.email.value,
-      interesse: form.interesse.value,
-      nachricht: form.nachricht.value
-    })
-    .then(function() {
-      alert("✅ Nachricht erfolgreich gesendet!");
-      form.reset();
-    }, function(error) {
-      alert("❌ Fehler beim Senden: " + error.text);
+      nachricht: form.nachricht.value,
+      recaptcha_token: token
     });
-  });
+
+    btn.textContent = "✓ Gesendet!";
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    btn.textContent = "Fehler!";
+  }
+
+  setTimeout(() => {
+    btn.textContent = "Nachricht senden →";
+    btn.disabled = false;
+  }, 3000);
+});
 </script>
 </body>
 </html>
