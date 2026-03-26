@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU"></script>
   <style>
     :root {
       --bg:#070a10;--bg2:#0d1117;--bg3:#131c28;
@@ -508,16 +509,17 @@
       </div>
       <div class="kontakt-form reveal">
         <div class="form-header">// Anfrage senden</div>
-        <form id="contactForm" onsubmit="handleSubmit(event)">
+        <form id="contactForm">
+          <div class="g-recaptcha" data-sitekey="your_site_key"></div>
           <div class="form-body">
             <div class="form-row">
-              <div class="form-group"><label>Vorname *</label><input type="text" placeholder="Max" required /></div>
-              <div class="form-group"><label>Nachname *</label><input type="text" placeholder="Mustermann" required /></div>
+              <div class="form-group"><label>Vorname *</label><input type="text" name="vorname" placeholder="Max" required /></div>
+              <div class="form-group"><label>Nachname *</label><input type="text" name="nachname" placeholder="Mustermann" required /></div>
             </div>
-            <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="max@musterbetrieb.de" required /></div>
+            <div class="form-group"><label>E-Mail *</label><input type="email" name="email" placeholder="max@musterbetrieb.de" required /></div>
             <div class="form-group">
-              <label>Ich interessiere mich für …</label>
-              <select>
+              <label for="interesse">Ich interessiere mich für …</label>
+              <select id="interesse" name="interesse">
                 <option value="">— Bitte wählen —</option>
                 <option>Cloud-Setup &amp; Migration (2.700 € Pauschal)</option>
                 <option>Prozessautomatisierung (2.700 € Pauschal)</option>
@@ -570,17 +572,57 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 <script>
-  const obs = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  function openMob(){document.getElementById('mob').classList.add('open');document.body.style.overflow='hidden';}
-  function closeMob(){document.getElementById('mob').classList.remove('open');document.body.style.overflow='';}
-  function handleSubmit(e){
+  (function(){
+    emailjs.init("ypcnLDXmWPU1YFjw-");
+  })();
+
+  function onClick(e) {
     e.preventDefault();
-    const btn=document.getElementById('submitBtn');
-    btn.textContent='✓ Gesendet!';btn.style.background='#16a34a';btn.style.boxShadow='0 0 0 1px #16a34a';btn.disabled=true;
-    setTimeout(()=>{btn.textContent='Nachricht senden →';btn.style.background='';btn.style.boxShadow='';btn.disabled=false;e.target.reset();},3500);
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU', {action: 'LOGIN'});
+    });
   }
+
+  // const obs = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('in')), {threshold:.1});
+  // document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // function openMob(){document.getElementById('mob').classList.add('open');document.body.style.overflow='hidden';}
+  // function closeMob(){document.getElementById('mob').classList.remove('open');document.body.style.overflow='';}
+  // function handleSubmit(e){
+  //   e.preventDefault();
+  //   const btn=document.getElementById('submitBtn');
+  //   btn.textContent='✓ Gesendet!';btn.style.background='#16a34a';btn.style.boxShadow='0 0 0 1px #16a34a';btn.disabled=true;
+  //   setTimeout(()=>{btn.textContent='Nachricht senden →';btn.style.background='';btn.style.boxShadow='';btn.disabled=false;e.target.reset();},3500);
+  // }
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    emailjs.send("service_p5hs7im", "template_mkyr2hg", {
+      vorname: form.vorname.value,
+      nachname: form.nachname.value,
+      email: form.email.value,
+      interesse: form.interesse.value,
+      nachricht: form.nachricht.value
+    })
+    emailjs.send("service_p5hs7im", "template_pxk7xjm", {
+      vorname: form.vorname.value,
+      nachname: form.nachname.value,
+      email: form.email.value,
+      interesse: form.interesse.value,
+      nachricht: form.nachricht.value
+    })
+    .then(function() {
+      alert("✅ Nachricht erfolgreich gesendet!");
+      form.reset();
+    }, function(error) {
+      alert("❌ Fehler beim Senden: " + error.text);
+    });
+  });
 </script>
 </body>
 </html>
