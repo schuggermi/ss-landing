@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU"></script>
   <style>
     :root {
       --bg:#070a10;--bg2:#0d1117;--bg3:#131c28;
@@ -510,6 +509,7 @@
       <div class="kontakt-form reveal">
         <div class="form-header">// Anfrage senden</div>
         <form id="contactForm">
+          <div class="g-recaptcha" data-sitekey="6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU"></div>
           <div class="form-body">
             <div class="form-row">
               <div class="form-group">
@@ -601,22 +601,15 @@ document.getElementById("contactForm").addEventListener("submit", async function
   btn.disabled = true;
 
   try {
-    // ✅ reCAPTCHA Token holen (WICHTIG: pro Submit!)
-    const token = await grecaptcha.enterprise.execute(
-      '6LfCdpksAAAAAHjNMiayQsldlxMQd78fjKXR_rgU',
-      { action: 'contact_form' }
-    );
-
     const form = e.target;
 
-    // ✅ Email senden (inkl. Token)
+    // ✅ Email senden
     await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
       vorname: form.vorname.value,
       nachname: form.nachname.value,
       email: form.email.value,
       interesse: form.interesse.value,
       nachricht: form.nachricht.value,
-      recaptcha_token: token
     });
 
     btn.textContent = "✓ Gesendet!";
