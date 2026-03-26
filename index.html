@@ -544,6 +544,7 @@
             <span class="form-footer-note">Wir respektieren deine Daten und halten uns an DSGVO.</span>
           </div>
         </form>
+        <div class="form-footer-note" id="formMsg"></div>
       </div>
     </div>
   </div>
@@ -588,37 +589,39 @@
   emailjs.init("ypcnLDXmWPU1YFjw-");
 })();
 
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-  const btn = document.getElementById("submitBtn");
-  btn.textContent = "Sende...";
-  btn.disabled = true;
+    const btn = document.getElementById("submitBtn");
+    btn.textContent = "Sende...";
+    btn.disabled = true;
 
-  try {
-    const form = e.target;
+    try {
+      const form = e.target;
 
-      // ✅ Email senden
-      await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
-        vorname: form.vorname.value,
-        nachname: form.nachname.value,
-        email: form.email.value,
-        interesse: form.interesse.value,
-        nachricht: form.nachricht.value,
-      });
+        // ✅ Email senden
+        await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
+          vorname: form.vorname.value,
+          nachname: form.nachname.value,
+          email: form.email.value,
+          interesse: form.interesse.value,
+          nachricht: form.nachricht.value,
+        });
 
-    btn.textContent = "✓ Gesendet!";
-    form.reset();
+      btn.textContent = "✓ Gesendet!";
+      form.reset();
 
-  } catch (error) {
-    console.error(error);
-    btn.textContent = "Fehler!";
-  }
+    } catch (error) {
+      console.error(error);
+      btn.textContent = "Fehler!";
+    }
 
-  setTimeout(() => {
-    btn.textContent = "Nachricht senden →";
-    btn.disabled = false;
-  }, 3000);
+    setTimeout(() => {
+      btn.textContent = "Nachricht senden →";
+      btn.disabled = false;
+    }, 3000);
+  });
 });
 
 function openMob() {
