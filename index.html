@@ -181,6 +181,7 @@
     .form-group select option{background:var(--bg2);}
     .form-footer{padding:20px 28px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
     .form-footer-note{font-size:12px;color:var(--muted);}
+    #form-status{font-size:13px;font-weight:600;}
 
     /* FOOTER */
     footer{background:var(--bg2);border-top:1px solid var(--rule);padding:56px 0 32px;}
@@ -466,27 +467,24 @@
         <p>Als Einzelkämpfer hast du bei mir keinen anonymen Support-Prozess – du sprichst immer direkt mit mir, der Person, die dein System aufgebaut hat.</p>
         <div class="principles">
           <div class="principle"><div class="pr-num">01</div><div class="pr-body"><strong>Datensouveränität</strong><span>Deine Daten bleiben auf deiner Infrastruktur. Kein Drittanbieter hat Zugriff.</span></div></div>
-          <div class="principle"><div class="pr-num">02</div><div class="pr-body"><strong>DSGVO by Design</strong><span>Alle Lösungen sind von Grund auf DSGVO-konform geplant und umgesetzt.</span></div></div>
-          <div class="principle"><div class="pr-num">03</div><div class="pr-body"><strong>Pragmatische Technik</strong><span>Keine Spielereien – nur Lösungen, die in der Praxis täglich funktionieren.</span></div></div>
-          <div class="principle"><div class="pr-num">04</div><div class="pr-body"><strong>Direkter Kontakt</strong><span>Du erreichst immer mich persönlich – kein Call-Center, kein Ticket-System.</span></div></div>
+          <div class="principle"><div class="pr-num">02</div><div class="pr-body"><strong>Effizienz</strong><span>Automatisierung ist nur dann gut, wenn sie dir wirklich Zeit spart.</span></div></div>
+          <div class="principle"><div class="pr-num">03</div><div class="pr-body"><strong>Transparenz</strong><span>Keine versteckten Gebühren, keine komplizierten Verträge.</span></div></div>
         </div>
       </div>
-      <div class="ueber-right reveal">
+      <div class="ueber-right">
         <div class="profile-card">
           <div class="profile-top">
-            <div class="profile-avatar"><img src="img/ss_logo.png" alt="Logo" /></div>
-            <div class="profile-name">Schugge Solutions</div>
-            <div class="profile-role">IT-Automatisierung · Berlin</div>
+            <div class="profile-avatar"><img src="img/profile.jpg" alt="Gründer Schugge Solutions" /></div>
+            <div class="profile-name">Dominik Schugge</div>
+            <div class="profile-role">Gründer &amp; IT-Experte</div>
           </div>
           <div class="profile-stats">
-            <div class="ps-cell"><div class="ps-val">100%</div><div class="ps-lbl">Open-Source</div></div>
-            <div class="ps-cell"><div class="ps-val">3</div><div class="ps-lbl">Kernleistungen</div></div>
-            <div class="ps-cell"><div class="ps-val">24h</div><div class="ps-lbl">Reaktionszeit</div></div>
-            <div class="ps-cell"><div class="ps-val">BLN</div><div class="ps-lbl">Standort</div></div>
+            <div class="ps-cell"><div class="ps-val">10+</div><div class="ps-lbl">Jahre IT</div></div>
+            <div class="ps-cell"><div class="ps-val">Berlin</div><div class="ps-lbl">Zuhause</div></div>
           </div>
           <div class="profile-body">
-            <p>Spezialisiert auf Handwerksbetriebe in Berlin. Cloud-Setup, Prozessautomatisierung und laufender IT-Support aus einer Hand.</p>
-            <a href="#kontakt" class="btn btn-primary">Jetzt Gespräch vereinbaren →</a>
+            <p>Ich kombiniere technisches Know-how mit dem Verständnis für betriebliche Abläufe im Handwerk.</p>
+            <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
           </div>
         </div>
       </div>
@@ -499,52 +497,64 @@
     <div class="section-label"><span></span>Kontakt<span></span></div>
     <div class="kontakt-grid">
       <div class="kontakt-left">
-        <h2 class="section-title">Jetzt anfragen</h2>
-        <p>Schreib mir eine Nachricht und ich melde mich zeitnah zurück.</p>
+        <h2>Lass uns deinen Betrieb digitalisieren</h2>
+        <p>Schreib mir eine Nachricht oder ruf an. Ich melde mich innerhalb von 24 Stunden bei dir für ein kostenloses Erstgespräch.</p>
+        <div class="contact-items">
+          <div class="ci">
+            <div class="ci-icon">📧</div>
+            <div>
+              <div class="ci-label">E-Mail</div>
+              <div class="ci-val">hallo@schugge.solutions</div>
+            </div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Telefon</div>
+              <div class="ci-val">+49 30 123 456 78</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="kontakt-right">
-        <form id="contactForm" class="kontakt-form">
-          <div class="form-header">Deine Kontaktdaten</div>
+      <div class="kontakt-form">
+        <div class="form-header">Anfrage senden</div>
+        <form id="contact-form" action="contact.php" method="POST">
           <div class="form-body">
             <div class="form-row">
               <div class="form-group">
-                <label for="vorname">Vorname</label>
-                <input type="text" id="vorname" name="vorname" placeholder="Max" required />
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Dein Name" required />
               </div>
               <div class="form-group">
-                <label for="nachname">Nachname</label>
-                <input type="text" id="nachname" name="nachname" placeholder="Mustermann" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" id="email" name="email" placeholder="max@beispiel.de" required />
-              </div>
-              <div class="form-group">
-                <label for="interesse">Interesse</label>
-                <select id="interesse" name="interesse">
-                  <option value="cloud">Cloud & IT-Automatisierung</option>
-                  <option value="support">Managed IT & Support</option>
-                  <option value="workflow">Prozessautomatisierung</option>
-                </select>
+                <label>Betrieb</label>
+                <input type="text" name="company" placeholder="Name deines Betriebs" />
               </div>
             </div>
             <div class="form-group">
-              <label for="nachricht">Nachricht</label>
-              <textarea id="nachricht" name="nachricht" placeholder="Deine Nachricht..." required></textarea>
+              <label>E-Mail Adresse</label>
+              <input type="email" name="email" placeholder="beispiel@mail.de" required />
             </div>
-<!--            &lt;!&ndash; reCAPTCHA v2 &ndash;&gt;-->
-<!--            <div class="form-group">-->
-<!--              <div class="g-recaptcha" data-sitekey="6Leeh5ksAAAAADGDu23cmJscWK3BXXDF_13QpotP"></div>-->
-<!--            </div>-->
+            <div class="form-group">
+              <label>Was ist dein Anliegen?</label>
+              <select name="subject">
+                <option value="cloud">Cloud & Datenschutz</option>
+                <option value="auto">Automatisierung</option>
+                <option value="support">Managed IT & Support</option>
+                <option value="other">Anderes Thema</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Nachricht</label>
+              <textarea name="message" placeholder="Beschreibe kurz deine aktuelle Situation..."></textarea>
+            </div>
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
           </div>
           <div class="form-footer">
-            <button type="submit" class="btn btn-primary">Absenden</button>
-            <span class="form-footer-note">Wir respektieren deine Daten und halten uns an DSGVO.</span>
+            <div class="form-footer-note">Antwort in der Regel innerhalb von 24h.</div>
+            <div id="form-status"></div>
+            <button type="submit" class="btn btn-primary">Anfrage abschicken →</button>
           </div>
         </form>
-        <div class="form-footer-note" id="formMsg"></div>
       </div>
     </div>
   </div>
@@ -553,9 +563,12 @@
 <footer>
   <div class="container">
     <div class="footer-top">
-      <div>
-        <div class="footer-brand-row"><img src="img/ss_logo.png" alt="Logo" /><span>Schugge<em>.</em>Solutions</span></div>
-        <p class="footer-desc">IT-Automatisierung &amp; Open-Source Cloud für Handwerksbetriebe in Berlin. DSGVO-konform, transparent, direkt.</p>
+      <div class="footer-col">
+        <div class="footer-brand-row">
+          <img src="img/ss_logo.png" alt="Schugge Solutions" />
+          <span>Schugge<em>.</em>Solutions</span>
+        </div>
+        <p class="footer-desc">Die IT-Abteilung für das Berliner Handwerk. Sicher, unabhängig und effizient durch Open-Source.</p>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
@@ -569,67 +582,71 @@
       <div class="footer-col">
         <h4>Rechtliches</h4>
         <ul class="footer-links">
-          <li><a href="#">Impressum</a></li>
-          <li><a href="#">Datenschutz</a></li>
-          <li><a href="#">AGB</a></li>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Schugge Solutions<span class="dot">·</span>Berlin</span>
-      <span>Open-Source<span class="dot">·</span>DSGVO-konform<span class="dot">·</span>Made in Berlin</span>
+      <div>&copy; 2026 Schugge Solutions. Alle Rechte vorbehalten.</div>
+      <div>Made in Berlin<span class="dot">•</span>IT with Passion</div>
     </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
 <script>
-(function(){
-  emailjs.init("ypcnLDXmWPU1YFjw-");
-})();
+  /* Mobile Menu */
+  const mob = document.getElementById('mob');
+  function openMob(){ mob.classList.add('open'); }
+  function closeMob(){ mob.classList.remove('open'); }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  /* Scroll reveal */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Form Submission Handler */
+  document.getElementById('contact-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
+    const status = document.getElementById('form-status');
+    const btn = this.querySelector('button');
 
-    const btn = document.getElementById("submitBtn");
-    btn.textContent = "Sende...";
+    // Safety check for the status element to prevent the "Cannot set properties of null" error
+    if (!status) return;
+
+    status.textContent = 'Wird gesendet...';
+    status.style.color = 'var(--muted)';
     btn.disabled = true;
 
+    const formData = new FormData(this);
+
     try {
-      const form = e.target;
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: formData
+      });
 
-        // ✅ Email senden
-        await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
-          vorname: form.vorname.value,
-          nachname: form.nachname.value,
-          email: form.email.value,
-          interesse: form.interesse.value,
-          nachricht: form.nachricht.value,
-        });
-
-      btn.textContent = "✓ Gesendet!";
-      form.reset();
-
-    } catch (error) {
-      console.error(error);
-      btn.textContent = "Fehler!";
-    }
-
-    setTimeout(() => {
-      btn.textContent = "Nachricht senden →";
+      if (response.ok) {
+        status.textContent = 'Erfolgreich gesendet!';
+        status.style.color = '#4ade80';
+        this.reset();
+      } else {
+        throw new Error();
+      }
+    } catch (err) {
+      status.textContent = 'Fehler beim Senden.';
+      status.style.color = '#f87171';
+    } finally {
       btn.disabled = false;
-    }, 3000);
+    }
   });
-});
-
-function openMob() {
-  document.getElementById('mob').classList.add('open');
-}
-function closeMob() {
-  document.getElementById('mob').classList.remove('open');
-}
 </script>
+
 </body>
 </html>
