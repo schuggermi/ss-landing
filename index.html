@@ -238,7 +238,7 @@
     }
   </style>
 
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LesjJksAAAAANGpehMu8Fh8RzFzjStNNIDeUgpB"></script>
 </head>
 <body>
 
@@ -598,24 +598,19 @@ document.getElementById("contactForm").addEventListener("submit", async function
   try {
     const form = e.target;
 
-    if (typeof grecaptcha === "undefined") {
-      alert("reCAPTCHA lädt noch – bitte kurz warten.");
-      return;
-    }
-
-    if (grecaptcha.getResponse() === "") {
-      alert("Bitte bestätige, dass du kein Roboter bist.");
-      return;
-    }
-
-    // ✅ Email senden
-    await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
-      vorname: form.vorname.value,
-      nachname: form.nachname.value,
-      email: form.email.value,
-      interesse: form.interesse.value,
-      nachricht: form.nachricht.value,
-    });
+    grecaptcha.enterprise.ready(() => {
+        grecaptcha.enterprise.execute('6LesjJksAAAAANGpehMu8Fh8RzFzjStNNIDeUgpB', { action: 'contactForm' }).then(async token => {
+          // ✅ Email senden
+          await emailjs.send("service_p5hs7im", "template_mkyr2hg", {
+            vorname: form.vorname.value,
+            nachname: form.nachname.value,
+            email: form.email.value,
+            interesse: form.interesse.value,
+            nachricht: form.nachricht.value,
+            token: token
+          });
+        });
+      });
 
     btn.textContent = "✓ Gesendet!";
     form.reset();
@@ -630,6 +625,13 @@ document.getElementById("contactForm").addEventListener("submit", async function
     btn.disabled = false;
   }, 3000);
 });
+
+function openMob() {
+  document.getElementById('mob').classList.add('open');
+}
+function closeMob() {
+  document.getElementById('mob').classList.remove('open');
+}
 </script>
 </body>
 </html>
